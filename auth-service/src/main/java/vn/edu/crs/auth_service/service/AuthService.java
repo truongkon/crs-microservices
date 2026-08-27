@@ -21,9 +21,8 @@ public class AuthService {
         {
             throw new InvalidCredentialsException("Sai username hoac password");
         }
-        String token = jwtUtil.generateToken(user.getUsername(),
-                user.getRole());
-        return new LoginResponseDTO(token, user.getUsername(),
-                user.getRole());
+        // Trong phương thức login(), cập nhật đoạn trả về:
+        String token = jwtUtil.generateToken(user.getId(), user.getUsername(), user.getRole());
+        return new LoginResponseDTO(user.getId(), token, user.getUsername(), user.getRole());
     }
 }
