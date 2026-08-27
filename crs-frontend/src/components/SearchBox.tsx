@@ -1,35 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface SearchBoxProps {
     onSearch: (keyword: string) => void;
-    placeholder?: string;
 }
 
-export default function SearchBox({ onSearch, placeholder }: SearchBoxProps) {
-    const [inputValue, setInputValue] = useState('');
+export default function SearchBox({ onSearch }: SearchBoxProps) {
+    const [text, setText] = useState('');
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            onSearch(inputValue.trim());
-        }, 400);
-
-        return () => clearTimeout(timer);
-    }, [inputValue, onSearch]);
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault(); // Ngăn reload trang
+        onSearch(text);
+    };
 
     return (
-        <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder={placeholder ?? 'Tìm kiếm theo tên môn học...'}
-            style={{
-                width: '100%',
-                maxWidth: 400,
-                padding: '8px 12px',
-                fontSize: 14,
-                border: '1px solid #ccc',
-                borderRadius: 6,
-            }}
-        />
+        <form onSubmit={handleSubmit} style={{ marginBottom: 16 }}>
+            <input
+                type="text"
+                placeholder="Tim kiem theo ten mon hoc..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                style={{ padding: '6px 12px', width: 300 }}
+            />
+            <button type="submit" style={{ marginLeft: 8 }}>
+                Tim kiếm
+            </button>
+        </form>
     );
 }
