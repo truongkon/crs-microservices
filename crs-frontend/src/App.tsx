@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import MyRegistrationsPage from './pages/MyRegistrationsPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
@@ -29,6 +30,14 @@ function App() {
                         element={
                             <ProtectedRoute requiredRole="STUDENT">
                                 <RegisterCoursePage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/my-registrations"
+                        element={
+                            <ProtectedRoute requiredRole="STUDENT">
+                                <MyRegistrationsPage />
                             </ProtectedRoute>
                         }
                     />
